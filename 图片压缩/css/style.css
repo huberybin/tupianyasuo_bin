@@ -1,0 +1,236 @@
+/* 全局样式 */
+:root {
+    --primary-color: #007AFF;
+    --text-color: #1D1D1F;
+    --secondary-text: #86868B;
+    --background: #FFFFFF;
+    --border-radius: 12px;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    background-color: #F5F5F7;
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* 头部样式 */
+.header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: var(--secondary-text);
+    font-size: 1.1rem;
+}
+
+/* 主要内容区域 */
+.main-content {
+    background: var(--background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+/* 上传区域样式 */
+.upload-section {
+    border: 2px dashed #E5E5E5;
+    border-radius: var(--border-radius);
+    padding: 3rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-section:hover {
+    border-color: var(--primary-color);
+    background-color: rgba(0, 122, 255, 0.05);
+}
+
+.upload-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.upload-icon {
+    fill: var(--primary-color);
+}
+
+.upload-text {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.upload-hint {
+    color: var(--secondary-text);
+    font-size: 0.9rem;
+}
+
+/* 压缩设置区域 */
+.compression-settings {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #F5F5F7;
+    border-radius: var(--border-radius);
+}
+
+.quality-control {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+input[type="range"] {
+    flex: 1;
+    -webkit-appearance: none;
+    height: 4px;
+    background: #E5E5E5;
+    border-radius: 2px;
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+
+/* 预览区域样式 */
+.preview-section {
+    margin-top: 2rem;
+}
+
+.preview-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.preview-box {
+    background: #F5F5F7;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+}
+
+.preview-box h3 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.image-container {
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #E5E5E5;
+    margin-bottom: 1rem;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.image-info {
+    display: flex;
+    justify-content: space-between;
+    color: var(--secondary-text);
+    font-size: 0.9rem;
+}
+
+/* 按钮样式 */
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.download-btn, .reset-btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: 20px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.download-btn {
+    background: var(--primary-color);
+    color: white;
+}
+
+.download-btn:hover {
+    background: #0066CC;
+    transform: translateY(-1px);
+}
+
+.reset-btn {
+    background: #F5F5F7;
+    color: var(--text-color);
+}
+
+.reset-btn:hover {
+    background: #E5E5E5;
+}
+
+.download-btn svg {
+    fill: currentColor;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .preview-container {
+        grid-template-columns: 1fr;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .header h1 {
+        font-size: 2rem;
+    }
+} 
