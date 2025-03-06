@@ -117,39 +117,62 @@ function showUI() {
 async function compressImage() {
     if (!currentFile) return;
 
-    const quality = parseInt(qualitySlider.value) / 100;
-    
-    // 添加第一个调试输出
-    console.log(`当前质量: ${quality}, 原始文件大小: ${formatFileSize(currentFile.size)}`);
-    
-    try {
-        const options = {
-            maxSizeMB: 10,
-            maxWidthOrHeight: 2048,
-            useWebWorker: true,
-            quality
+    // 添加防抖函数
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
         };
-    
-        // 添加等待提示
-        console.log(`开始压缩...质量: ${quality}`);
-        
-        compressedBlob = await imageCompression(currentFile, options);
-        
-        // 添加第二个调试输出
-        console.log(`压缩完成 - 质量: ${quality}, 压缩后文件大小: ${formatFileSize(compressedBlob.size)}`);
-        
-        // 显示压缩后的预览
-        compressedPreview.src = URL.createObjectURL(compressedBlob);
-        
-        // 更新压缩后的文件信息
-        compressedSize.textContent = `大小: ${formatFileSize(compressedBlob.size)}`;
-        const dimensions = await getImageDimensions(compressedBlob);
-        compressedDimensions.textContent = `尺寸: ${dimensions.width} x ${dimensions.height}`;
-        
-    } catch (error) {
-        console.error('压缩失败:', error);
-        alert('图片压缩失败，请重试！');
     }
+    
+    // 压缩图片
+    async function compressImage() {
+        if (!currentFile) return;
+    
+        const quality = parseInt(qualitySlider.value) / 100;
+        console.log(`准备压缩 - 质量: ${quality}, 原始文件大小: ${formatFileSize(currentFile.size)}`);
+    
+        try {
+            const options = {
+                maxSizeMB: 10,
+                maxWidthOrHeight: 2048,
+                useWebWorker: true,
+                quality
+            };
+    
+            console.log(`开始压缩...质量: ${quality}`);
+            
+            compressedBlob = await imageCompression(currentFile, options);
+            
+            console.log(`压缩完成 - 质量: ${quality}, 压缩后文件大小: ${formatFileSize(compressedBlob.size)}`);
+            
+            // 显示压缩后的预览
+            compressedPreview.src = URL.createObjectURL(compressedBlob);
+            
+            // 更新压缩后的文件信息
+            compressedSize.textContent = `大小: ${formatFileSize(compressedBlob.size)}`;
+            const dimensions = await getImageDimensions(compressedBlob);
+            compressedDimensions.textContent = `尺寸: ${dimensions.width} x ${dimensions.height}`;
+            
+        } catch (error) {
+            console.error('压缩失败:', error);
+            alert('图片压缩失败，请重试！');
+        }
+    }
+    
+    // 使用防抖包装压缩函数
+    const debouncedCompressImage = debounce(compressImage, 300);
+    
+    // 事件监听
+    qualitySlider.addEventListener('input', (e) => {
+        qualityValue.textContent = `${e.target.value}%`;
+        debouncedCompressImage();
+    });
 }
 
 // 格式化文件大小
