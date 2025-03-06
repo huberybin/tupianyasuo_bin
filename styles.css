@@ -379,12 +379,26 @@ button:disabled {
     border-radius: var(--border-radius-md);
     color: #34c759;
     font-weight: 500;
-    display: none;
     max-width: 500px;
-    display: flex;
+    display: none; /* 默认隐藏 */
     align-items: center;
     justify-content: center;
     gap: var(--spacing-sm);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.success-message.show {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.success-message svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
 }
 
 /* 添加工具提示样式 */

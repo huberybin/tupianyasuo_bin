@@ -233,6 +233,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         // 显示成功消息
                         successMessage.style.display = 'flex';
+                        successMessage.classList.add('show');
+                        
+                        // 3秒后自动隐藏成功消息
+                        setTimeout(() => {
+                            successMessage.classList.remove('show');
+                            setTimeout(() => {
+                                successMessage.style.display = 'none';
+                            }, 300);
+                        }, 3000);
                     });
                 }, 500);
             };
@@ -312,6 +321,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // 显示成功消息
                 successMessage.style.display = 'flex';
+                successMessage.classList.add('show');
+                
+                // 3秒后自动隐藏成功消息
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 300);
+                }, 3000);
                 
                 // 恢复按钮状态
                 compressButton.textContent = '重新压缩';
@@ -397,6 +415,7 @@ document.addEventListener('DOMContentLoaded', function() {
         resetButton.style.display = 'none';
         
         // 隐藏成功消息
+        successMessage.classList.remove('show');
         successMessage.style.display = 'none';
         
         // 禁用压缩按钮
