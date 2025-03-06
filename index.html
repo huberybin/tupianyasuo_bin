@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片压缩工具 V1.0.2 - 轻松压缩您的图片</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- 引入苹果风格图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="免费在线图片压缩工具，轻松减小PNG、JPG图片文件大小，支持批量处理，无需安装软件">
+</head>
+<body>
+    <div class="container">
+        <!-- 头部区域 -->
+        <header>
+            <div class="logo">
+                <i class="fas fa-compress-alt"></i>
+                <h1>图片压缩工具</h1>
+                <span class="version">V1.0.2</span>
+            </div>
+            <p class="subtitle">轻松压缩图片，保持清晰度</p>
+        </header>
+
+        <!-- 主要内容区域 -->
+        <main>
+            <!-- 上传区域 -->
+            <section class="upload-section" id="uploadSection">
+                <div class="upload-container" id="uploadContainer">
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h2>选择或拖放图片</h2>
+                    <p>支持 JPG、PNG 格式图片，最多可同时上传 20 张</p>
+                    <input type="file" id="imageInput" accept="image/jpeg, image/png" multiple hidden>
+                    <button class="upload-btn" id="uploadBtn">选择图片</button>
+                </div>
+            </section>
+
+            <!-- 处理区域 -->
+            <section class="process-section" id="processSection">
+                <!-- 压缩控制 -->
+                <div class="control-panel">
+                    <h3>压缩设置</h3>
+                    <div class="quality-control">
+                        <label for="qualitySlider">压缩质量: <span id="qualityValue">80%</span></label>
+                        <input type="range" id="qualitySlider" min="1" max="100" value="80" class="slider">
+                    </div>
+                    <div class="buttons">
+                        <button id="compressAllBtn" class="primary-btn">压缩全部</button>
+                        <button id="downloadAllBtn" class="secondary-btn">下载全部</button>
+                        <button id="resetBtn" class="text-btn">重新上传</button>
+                    </div>
+                </div>
+
+                <!-- 图片列表区域 -->
+                <div class="images-list" id="imagesList">
+                    <!-- 图片项模板 -->
+                    <div class="image-item-template" style="display: none;">
+                        <div class="preview-container">
+                            <div class="preview-box">
+                                <h3>原始图片</h3>
+                                <div class="image-preview original-preview">
+                                    <img src="" alt="原始图片预览">
+                                </div>
+                                <div class="image-info">
+                                    <p>格式: <span class="format">--</span></p>
+                                    <p>尺寸: <span class="dimensions">--</span></p>
+                                    <p>大小: <span class="size">--</span></p>
+                                </div>
+                            </div>
+
+                            <div class="preview-box">
+                                <h3>压缩图片</h3>
+                                <div class="image-preview compressed-preview">
+                                    <img src="" alt="压缩图片预览">
+                                </div>
+                                <div class="image-info">
+                                    <p>格式: <span class="format">--</span></p>
+                                    <p>尺寸: <span class="dimensions">--</span></p>
+                                    <p>大小: <span class="compressed-size">-- KB</span></p>
+                                </div>
+                                <button class="download-btn secondary-btn">下载</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 页脚区域 -->
+        <footer>
+            <p>© 2024 图片压缩工具 | 所有操作在浏览器中完成，您的图片不会上传至服务器</p>
+        </footer>
+    </div>
+
+    <!-- 加载脚本 -->
+    <script src="script.js"></script>
+</body>
+</html> 
