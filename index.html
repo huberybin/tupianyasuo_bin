@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>图片压缩 - 优雅的在线图片压缩工具</title>
-    <link rel="stylesheet" href="图片压缩/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -15,20 +18,22 @@
 
         <main class="main-content">
             <div class="upload-section" id="dropZone">
-                <input type="file" id="fileInput" accept="image/*" hidden>
-                <div class="upload-inner">
-                    <svg class="upload-icon" width="48" height="48" viewBox="0 0 24 24">
-                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-                    </svg>
-                    <p class="upload-text">拖拽图片到这里或点击上传</p>
-                    <p class="upload-hint">支持 PNG、JPG 等格式</p>
-                </div>
+                <label for="fileInput" class="file-input-label">
+                    <input type="file" id="fileInput" accept="image/png, image/jpeg" class="file-input">
+                    <div class="upload-inner">
+                        <svg class="upload-icon" width="48" height="48" viewBox="0 0 24 24" fill="#0071e3">
+                            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                        </svg>
+                        <p class="upload-text">拖拽图片到这里或点击上传</p>
+                        <p class="upload-hint">支持 PNG、JPG 等格式</p>
+                    </div>
+                </label>
             </div>
 
             <div class="compression-settings" id="settingsPanel" style="display: none;">
                 <div class="quality-control">
                     <label for="quality">压缩质量</label>
-                    <input type="range" id="quality" min="0" max="100" value="80">
+                    <input type="range" id="quality" min="10" max="100" value="80" step="1">
                     <span id="qualityValue">80%</span>
                 </div>
             </div>
@@ -60,7 +65,7 @@
 
                 <div class="action-buttons">
                     <button id="downloadBtn" class="download-btn">
-                        <svg width="20" height="20" viewBox="0 0 24 24">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff">
                             <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
                         </svg>
                         下载压缩后的图片
@@ -71,10 +76,13 @@
                 </div>
             </div>
         </main>
+
+        <footer class="footer">
+            <p>© 2023 图片压缩工具 | 用爱制作</p>
+        </footer>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
-   <script src="图片压缩/js/main.js"></script>
+    <script src="js/main.js"></script>
 </body>
-</html> 
+</html>
