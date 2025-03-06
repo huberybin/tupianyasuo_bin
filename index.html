@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片压缩工具 - 轻松压缩您的图片</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🖼️</text></svg>">
+    <meta name="description" content="免费在线图片压缩工具，轻松压缩PNG、JPG、JPEG格式图片，减小文件大小">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>图片压缩工具</h1>
+            <p>上传图片，调整压缩质量，获得更小的文件</p>
+            
+            <div class="mode-switch">
+                <button id="singleModeBtn" class="mode-btn active">单张处理</button>
+                <button id="batchModeBtn" class="mode-btn">批量处理</button>
+            </div>
+        </header>
+        
+        <!-- 单张模式区域 -->
+        <div id="singleModeContainer" class="mode-container active">
+            <div class="upload-section" id="dropZone">
+                <input type="file" id="imageInput" accept="image/png, image/jpeg" />
+                <label for="imageInput" class="file-upload-label">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 12.586l4.243 4.242-1.415 1.415L13 16.415V22h-2v-5.587l-1.828 1.83-1.415-1.415L12 12.586zM12 2a7.001 7.001 0 0 1 6.954 6.194 5.5 5.5 0 0 1-.953 10.784v-2.014a3.5 3.5 0 1 0-1.112-6.91 5 5 0 1 0-9.777 0 3.5 3.5 0 0 0-1.292 6.88l.19.031v2.014a5.5 5.5 0 0 1-.954-10.784A7 7 0 0 1 12 2z"/></svg>
+                    选择图片
+                </label>
+                <p class="upload-hint">支持 PNG、JPG、JPEG 格式 | 拖放文件到此处</p>
+            </div>
+            
+            <div class="compression-controls">
+                <div class="slider-container">
+                    <label for="compressionSlider">
+                        <span>压缩质量</span>
+                        <span id="qualityValue">80%</span>
+                    </label>
+                    <input type="range" id="compressionSlider" min="1" max="100" value="80" />
+                    <div class="tooltip">
+                        <span class="tooltip-icon">?</span>
+                        <span class="tooltip-text">较高的值保留更多细节但文件更大，较低的值文件更小但可能降低图片质量</span>
+                    </div>
+                </div>
+                <button id="compressButton" disabled>压缩图片</button>
+            </div>
+            
+            <div id="previewContainer">
+                <div class="preview-box">
+                    <div class="preview-title">原始图片</div>
+                    <div id="originalPreview">
+                        <div class="placeholder">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 5H4v14l9.292-9.294a1 1 0 0 1 1.414 0L20 15.01V5zM2 3.993A1 1 0 0 1 2.992 3h18.016c.548 0 .992.445.992.993v16.014a1 1 0 0 1-.992.993H2.992A.993.993 0 0 1 2 20.007V3.993zM8 11a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
+                            <span>请上传图片</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="preview-box">
+                    <div class="preview-title">压缩后图片</div>
+                    <div id="compressedPreview">
+                        <div class="placeholder">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 5H4v14l9.292-9.294a1 1 0 0 1 1.414 0L20 15.01V5zM2 3.993A1 1 0 0 1 2.992 3h18.016c.548 0 .992.445.992.993v16.014a1 1 0 0 1-.992.993H2.992A.993.993 0 0 1 2 20.007V3.993zM8 11a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
+                            <span>等待压缩</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="fileSizes">
+                <div class="file-info-box" id="originalInfoBox">
+                    <div class="file-info-title">原始图片信息</div>
+                    <div class="empty-file-info">请上传图片查看详细信息</div>
+                </div>
+                
+                <div class="file-info-box" id="compressedInfoBox">
+                    <div class="file-info-title">压缩后图片信息</div>
+                    <div class="empty-file-info">等待压缩</div>
+                </div>
+            </div>
+            
+            <div class="success-message" id="successMessage">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                图片压缩成功！
+            </div>
+            
+            <div class="btn-group">
+                <a id="downloadLink" style="display:none;">下载压缩后的图片</a>
+                <button id="resetButton" class="btn-secondary" style="display:none;">重新开始</button>
+            </div>
+        </div>
+        
+        <!-- 批量模式区域 -->
+        <div id="batchModeContainer" class="mode-container">
+            <div class="upload-section" id="batchDropZone">
+                <input type="file" id="batchImageInput" accept="image/png, image/jpeg" multiple />
+                <label for="batchImageInput" class="file-upload-label">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 12.586l4.243 4.242-1.415 1.415L13 16.415V22h-2v-5.587l-1.828 1.83-1.415-1.415L12 12.586zM12 2a7.001 7.001 0 0 1 6.954 6.194 5.5 5.5 0 0 1-.953 10.784v-2.014a3.5 3.5 0 1 0-1.112-6.91 5 5 0 1 0-9.777 0 3.5 3.5 0 0 0-1.292 6.88l.19.031v2.014a5.5 5.5 0 0 1-.954-10.784A7 7 0 0 1 12 2z"/></svg>
+                    选择多张图片
+                </label>
+                <p class="upload-hint">支持 PNG、JPG、JPEG 格式 | 拖放文件到此处</p>
+            </div>
+            
+            <div class="compression-controls">
+                <div class="slider-container">
+                    <label for="batchCompressionSlider">
+                        <span>压缩质量</span>
+                        <span id="batchQualityValue">80%</span>
+                    </label>
+                    <input type="range" id="batchCompressionSlider" min="1" max="100" value="80" />
+                    <div class="tooltip">
+                        <span class="tooltip-icon">?</span>
+                        <span class="tooltip-text">较高的值保留更多细节但文件更大，较低的值文件更小但可能降低图片质量</span>
+                    </div>
+                </div>
+                <button id="batchCompressButton" disabled>批量压缩</button>
+            </div>
+            
+            <div class="file-list-container">
+                <div class="file-list-header">
+                    <div class="file-header-name">文件名</div>
+                    <div class="file-header-size">原始大小</div>
+                    <div class="file-header-size">压缩后大小</div>
+                    <div class="file-header-ratio">压缩率</div>
+                    <div class="file-header-status">状态</div>
+                    <div class="file-header-action">操作</div>
+                </div>
+                <div id="fileList" class="file-list">
+                    <div class="empty-list">请上传图片文件</div>
+                </div>
+            </div>
+            
+            <div class="batch-controls">
+                <div class="batch-stats">
+                    <div class="batch-stats-item">总文件数: <span id="totalFilesCount">0</span></div>
+                    <div class="batch-stats-item">原始总大小: <span id="totalOriginalSize">0 KB</span></div>
+                    <div class="batch-stats-item">压缩后总大小: <span id="totalCompressedSize">0 KB</span></div>
+                    <div class="batch-stats-item">总压缩率: <span id="totalCompressionRatio">0%</span></div>
+                </div>
+                <div class="batch-actions">
+                    <button id="downloadAllButton" class="btn-primary" disabled>下载全部</button>
+                    <button id="clearAllButton" class="btn-secondary" disabled>清空列表</button>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 图片压缩工具 | 所有操作均在浏览器中完成，您的图片不会上传到服务器</p>
+        </footer>
+    </div>
+    
+    <!-- 隐藏的输入框，用于JS操作 -->
+    <input type="number" id="compressionRatio" min="1" max="100" value="80" style="display:none;" />
+    <input type="number" id="batchCompressionRatio" min="1" max="100" value="80" style="display:none;" />
+    
+    <!-- JSZip库，用于批量下载 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    
+    <script src="script.js"></script>
+</body>
+</html> 
