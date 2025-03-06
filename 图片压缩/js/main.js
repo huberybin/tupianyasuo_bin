@@ -117,19 +117,6 @@ function showUI() {
 async function compressImage() {
     if (!currentFile) return;
 
-    // 添加防抖函数
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-    
     // 压缩图片
     async function compressImage() {
         if (!currentFile) return;
@@ -139,13 +126,13 @@ async function compressImage() {
     
         try {
             const options = {
-                maxSizeMB: 10,
+                maxSizeMB: Math.max(currentFile.size / (1024 * 1024) * quality, 0.1), // 根据质量调整目标大小
                 maxWidthOrHeight: 2048,
                 useWebWorker: true,
-                quality
+                quality: quality
             };
     
-            console.log(`开始压缩...质量: ${quality}`);
+            console.log(`开始压缩...质量: ${quality}, 目标大小: ${formatFileSize(options.maxSizeMB * 1024 * 1024)}`);
             
             compressedBlob = await imageCompression(currentFile, options);
             
@@ -164,15 +151,6 @@ async function compressImage() {
             alert('图片压缩失败，请重试！');
         }
     }
-    
-    // 使用防抖包装压缩函数
-    const debouncedCompressImage = debounce(compressImage, 300);
-    
-    // 事件监听
-    qualitySlider.addEventListener('input', (e) => {
-        qualityValue.textContent = `${e.target.value}%`;
-        debouncedCompressImage();
-    });
 }
 
 // 格式化文件大小
