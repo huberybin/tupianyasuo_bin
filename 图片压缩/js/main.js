@@ -28,11 +28,11 @@ function initDropZone() {
     ['dragenter', 'dragover'].forEach(eventName => {
         dropZone.addEventListener(eventName, highlight, false);
     });
-
+    
     ['dragleave', 'drop'].forEach(eventName => {
         dropZone.addEventListener(eventName, unhighlight, false);
     });
-
+    
     dropZone.addEventListener('drop', handleDrop, false);
     dropZone.addEventListener('click', () => fileInput.click());
     fileInput.addEventListener('change', handleFileSelect);
@@ -76,7 +76,7 @@ async function handleFiles(files) {
         alert('请上传图片文件！');
         return;
     }
-
+    
     currentFile = file;
     await displayFileInfo(file);
     showUI();
@@ -119,6 +119,9 @@ async function compressImage() {
 
     const quality = parseInt(qualitySlider.value) / 100;
     
+    // 添加第一个调试输出
+    console.log(`当前质量: ${quality}, 原始文件大小: ${formatFileSize(currentFile.size)}`);
+    
     try {
         const options = {
             maxSizeMB: 10,
@@ -126,8 +129,11 @@ async function compressImage() {
             useWebWorker: true,
             quality
         };
-
+    
         compressedBlob = await imageCompression(currentFile, options);
+        
+        // 添加第二个调试输出
+        console.log(`压缩后文件大小: ${formatFileSize(compressedBlob.size)}`);
         
         // 显示压缩后的预览
         compressedPreview.src = URL.createObjectURL(compressedBlob);
