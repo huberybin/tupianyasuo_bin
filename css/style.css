@@ -1,0 +1,278 @@
+/* 全局设置 */
+:root {
+    --primary-color: #0071e3;
+    --secondary-color: #f5f5f7;
+    --text-color: #1d1d1f;
+    --light-text: #86868b;
+    --border-radius: 12px;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #ffffff;
+    color: var(--text-color);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* 头部 */
+.header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.header h1 {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(45deg, #0071e3, #5ac8fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--light-text);
+}
+
+/* 主要内容 */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* 上传区域 */
+.upload-section {
+    background-color: var(--secondary-color);
+    border-radius: var(--border-radius);
+    padding: 3rem;
+    text-align: center;
+    transition: var(--transition);
+    border: 2px dashed #e0e0e0;
+    cursor: pointer;
+}
+
+.upload-section:hover {
+    border-color: var(--primary-color);
+}
+
+.upload-section.highlight {
+    border-color: var(--primary-color);
+    background-color: rgba(0, 113, 227, 0.05);
+}
+
+.file-input-label {
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.file-input {
+    display: none;
+}
+
+.upload-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.upload-icon {
+    margin-bottom: 1rem;
+    fill: var(--primary-color);
+}
+
+.upload-text {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.upload-hint {
+    font-size: 1rem;
+    color: var(--light-text);
+}
+
+/* 压缩设置 */
+.compression-settings {
+    background-color: #ffffff;
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    margin-top: 2rem;
+}
+
+.quality-control {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.quality-control label {
+    font-weight: 500;
+    min-width: 100px;
+}
+
+#quality {
+    flex-grow: 1;
+    height: 6px;
+    -webkit-appearance: none;
+    background: linear-gradient(to right, var(--primary-color), #5ac8fa);
+    border-radius: 3px;
+    outline: none;
+}
+
+#quality::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 0 3px var(--primary-color);
+}
+
+#qualityValue {
+    font-weight: 500;
+    color: var(--primary-color);
+    min-width: 60px;
+    text-align: center;
+}
+
+/* 预览部分 */
+.preview-section {
+    margin-top: 2rem;
+}
+
+.preview-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.preview-box {
+    background-color: #ffffff;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+.preview-box h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.image-container {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--secondary-color);
+}
+
+.image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.image-info {
+    display: flex;
+    justify-content: space-between;
+    color: var(--light-text);
+    font-size: 0.9rem;
+}
+
+/* 操作按钮 */
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.download-btn, .reset-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.download-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.download-btn:hover {
+    background-color: #005bbf;
+}
+
+.reset-btn {
+    background-color: #f5f5f7;
+    color: var(--text-color);
+}
+
+.reset-btn:hover {
+    background-color: #e5e5ea;
+}
+
+/* 页脚 */
+.footer {
+    text-align: center;
+    margin-top: 4rem;
+    color: var(--light-text);
+    font-size: 0.9rem;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .preview-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .quality-control {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .upload-section {
+        padding: 2rem;
+    }
+}
