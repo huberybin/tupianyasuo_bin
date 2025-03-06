@@ -130,10 +130,13 @@ async function compressImage() {
             quality
         };
     
+        // 添加等待提示
+        console.log(`开始压缩...质量: ${quality}`);
+        
         compressedBlob = await imageCompression(currentFile, options);
         
         // 添加第二个调试输出
-        console.log(`压缩后文件大小: ${formatFileSize(compressedBlob.size)}`);
+        console.log(`压缩完成 - 质量: ${quality}, 压缩后文件大小: ${formatFileSize(compressedBlob.size)}`);
         
         // 显示压缩后的预览
         compressedPreview.src = URL.createObjectURL(compressedBlob);
